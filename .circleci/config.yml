@@ -22,7 +22,18 @@ jobs:
           name: Install System Dependencies
           command: |
             sudo apt-get update
-            DEBIAN_FRONTEND=noninteractive sudo apt-get install -y cmake clang clang-tidy lcov ninja-build pkg-config llvm doxygen graphviz
+            DEBIAN_FRONTEND=noninteractive sudo apt-get install -y clang clang-tidy lcov ninja-build pkg-config llvm doxygen graphviz
+
+      - run:
+          name: Install CMake 3.30+
+          command: |
+            # Download and install CMake 3.30
+            CMAKE_VERSION=3.30.0
+            CMAKE_BUILD=3.30.0
+            wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_BUILD}-linux-x86_64.tar.gz
+            tar -xzf cmake-${CMAKE_BUILD}-linux-x86_64.tar.gz
+            sudo cp -r cmake-${CMAKE_BUILD}-linux-x86_64/* /usr/local/
+            cmake --version
 
       - run:
           name: Setup vcpkg

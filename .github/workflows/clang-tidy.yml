@@ -20,7 +20,12 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y clang-tidy cmake build-essential ninja-build
+        sudo apt-get install -y clang-tidy build-essential ninja-build doxygen graphviz
+
+    - name: Install CMake 3.30+
+      uses: jwlawson/actions-setup-cmake@v2
+      with:
+        cmake-version: '3.30.0'
 
     - name: Bootstrap vcpkg
       run: |
