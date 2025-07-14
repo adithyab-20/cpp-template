@@ -1,12 +1,13 @@
-#include <gtest/gtest.h>
 #include <ab/calculator/Calculator.h>
 #include <ab/logger/Logger.h>
+
+#include <gtest/gtest.h>
 
 #include <string>
 #include <vector>
 
 class MockNotifier {
- public:
+public:
   bool notified = false;
 
   // For this test, if result > 10, the notifier should trigger.
@@ -24,7 +25,7 @@ TEST(IntegrationTest, CalculatorLogger_MockNotifier) {
   MockNotifier mockNotifier;
 
   // Perform a calculation that yields a result greater than 10.
-  int const result = calc.add(8, 5);  // Expected result: 13
+  int const result = calc.add(8, 5); // Expected result: 13
   std::string const logMessage = "Addition: 8 + 5 = " + std::to_string(result);
 
   // Log the operation.
@@ -34,7 +35,7 @@ TEST(IntegrationTest, CalculatorLogger_MockNotifier) {
   mockNotifier.checkAndNotify(result);
 
   // Verify the Logger captured the correct log message.
-  const std::vector<std::string>& logs = log.getLogs();
+  const std::vector<std::string> &logs = log.getLogs();
   ASSERT_FALSE(logs.empty());
   EXPECT_EQ(logs.back(), logMessage);
 

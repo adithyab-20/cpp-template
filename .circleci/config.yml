@@ -22,18 +22,7 @@ jobs:
           name: Install System Dependencies
           command: |
             sudo apt-get update
-            DEBIAN_FRONTEND=noninteractive sudo apt-get install -y clang clang-tidy lcov ninja-build pkg-config llvm doxygen graphviz
-
-      - run:
-          name: Install CMake 3.30+
-          command: |
-            # Download and install CMake 3.30
-            CMAKE_VERSION=3.30.0
-            CMAKE_BUILD=3.30.0
-            wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_BUILD}-linux-x86_64.tar.gz
-            tar -xzf cmake-${CMAKE_BUILD}-linux-x86_64.tar.gz
-            sudo cp -r cmake-${CMAKE_BUILD}-linux-x86_64/* /usr/local/
-            cmake --version
+            DEBIAN_FRONTEND=noninteractive sudo apt-get install -y cmake clang clang-tidy lcov ninja-build pkg-config llvm doxygen graphviz
 
       - run:
           name: Setup vcpkg
@@ -82,19 +71,9 @@ jobs:
             cd build
             ../scripts/generate_coverage.sh
 
-      - run:
-          name: Generate Documentation
-          command: |
-            cd build
-            ../scripts/generate_docs.sh
-
       - store_artifacts:
           path: build/coverage_html
           destination: coverage-report
-
-      - store_artifacts:
-          path: build/docs/html
-          destination: documentation
 
       # Save vcpkg cache
       - save_cache:
